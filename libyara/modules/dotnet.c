@@ -453,6 +453,9 @@ void dotnet_parse_tilde_2(
       case BIT_MODULE:
         module_table = (PMODULE_TABLE) table_offset;
 
+        if (!fits_in_pe(pe, table_offset, sizeof(PMODULE_TABLE)))
+          return;
+
         name = pe_get_dotnet_string(pe,
             string_offset,
             DOTNET_STRING_INDEX(module_table->Name));
